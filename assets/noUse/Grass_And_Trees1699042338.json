@@ -1,0 +1,142 @@
+[{
+  "version": "1.0",
+  "image": {
+    "name": "/home/videosdownloader/public_html/image/public/uploadt/Grass_And_Trees.png",
+    "baseName": "Grass_And_Trees.png",
+    "format": "PNG",
+    "formatDescription": "PNG",
+    "mimeType": "image/png",
+    "class": "DirectClass",
+    "geometry": {
+      "width": 224,
+      "height": 320,
+      "x": 0,
+      "y": 0
+    },
+    "units": "Undefined",
+    "type": "PaletteAlpha",
+    "baseType": "Undefined",
+    "endianness": "Undefined",
+    "colorspace": "sRGB",
+    "depth": 8,
+    "baseDepth": 8,
+    "channelDepth": {
+      "alpha": 1,
+      "red": 8,
+      "green": 8,
+      "blue": 1
+    },
+    "pixels": 286720,
+    "imageStatistics": {
+      "Overall": {
+        "min": 0,
+        "max": 255,
+        "mean": 47.3623,
+        "median": 65.75,
+        "standardDeviation": 17097,
+        "kurtosis": 1.28114,
+        "skewness": 1.70863,
+        "entropy": 0.646952
+      }
+    },
+    "channelStatistics": {
+      "alpha": {
+        "min": 0,
+        "max": 255,
+        "mean": 122.42,
+        "median": 255,
+        "standardDeviation": 32741.7,
+        "kurtosis": -1.99367,
+        "skewness": 0.0797492,
+        "entropy": 0.998855
+      },
+      "red": {
+        "min": 0,
+        "max": 252,
+        "mean": 15.2607,
+        "median": 0,
+        "standardDeviation": 11293,
+        "kurtosis": 15.4238,
+        "skewness": 3.84579,
+        "entropy": 0.450796
+      },
+      "green": {
+        "min": 0,
+        "max": 252,
+        "mean": 26.0095,
+        "median": 8,
+        "standardDeviation": 11942.1,
+        "kurtosis": 4.54297,
+        "skewness": 2.23249,
+        "entropy": 0.598359
+      },
+      "blue": {
+        "min": 0,
+        "max": 252,
+        "mean": 25.7591,
+        "median": 0,
+        "standardDeviation": 12411.2,
+        "kurtosis": 3.38811,
+        "skewness": 2.02472,
+        "entropy": 0.539797
+      }
+    },
+    "alpha": "#00000000",
+    "renderingIntent": "Perceptual",
+    "gamma": 0.454545,
+    "chromaticity": {
+      "redPrimary": {
+        "x": 0.64,
+        "y": 0.33
+      },
+      "greenPrimary": {
+        "x": 0.3,
+        "y": 0.6
+      },
+      "bluePrimary": {
+        "x": 0.15,
+        "y": 0.06
+      },
+      "whitePrimary": {
+        "x": 0.3127,
+        "y": 0.329
+      }
+    },
+    "matteColor": "#BDBDBD",
+    "backgroundColor": "#FFFFFF",
+    "borderColor": "#DFDFDF",
+    "transparentColor": "#00000000",
+    "interlace": "None",
+    "intensity": "Undefined",
+    "compose": "Over",
+    "pageGeometry": {
+      "width": 224,
+      "height": 320,
+      "x": 0,
+      "y": 0
+    },
+    "dispose": "Undefined",
+    "iterations": 0,
+    "compression": "Zip",
+    "orientation": "Undefined",
+    "properties": {
+      "date:create": "2023-11-03T20:12:14+00:00",
+      "date:modify": "2023-11-03T20:12:14+00:00",
+      "png:IHDR.bit-depth-orig": "8",
+      "png:IHDR.bit_depth": "8",
+      "png:IHDR.color-type-orig": "6",
+      "png:IHDR.color_type": "6 (RGBA)",
+      "png:IHDR.interlace_method": "0 (Not interlaced)",
+      "png:IHDR.width,height": "224, 320",
+      "png:sRGB": "intent=0 (Perceptual Intent)",
+      "signature": "a9dfd8e7957cb7152b915c045354bb8ab8e7ac002ea788bad96403594056580d"
+    },
+    "tainted": false,
+    "filesize": "10535B",
+    "numberPixels": "71680",
+    "pixelsPerSecond": "7.35283MB",
+    "userTime": "0.010u",
+    "elapsedTime": "0:01.009",
+    "version": "ImageMagick 7.0.10-58 Q16 x86_64 2021-01-14 https://imagemagick.org"
+  }
+}]
