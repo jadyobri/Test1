@@ -16,7 +16,7 @@ let config = {
             autoCenter: Phaser.Scale.CENTER_BOTH
         },
         arcade: {
-            //debug: true,
+            debug: true,
             gravity: {
                 x: 0,
                 y: 1000

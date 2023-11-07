@@ -53,11 +53,11 @@ class Play extends Phaser.Scene{
         //const mapped = this.make.tilemap({ data:array, tileWidth: 32, tileHeight:32});
         //mapped.addTilesetImage('tiles');
         //const layer = mapped.createLayer("layer",'tiles',0,0 );
-        this.grassed = this.add.image(game.config.width/2, game.config.height/2, "grassup").setScale(1);
+        //this.grassed = this.add.image(game.config.width/2, game.config.height/2, "grassup").setScale(1);
         //this.grassedupleft = this.add.image(game.config.width/4, game.config.height/4, "upleft").setScale(2);
        // const map = this.make.tilemap({data:Array, tileWidth: });
-        this.SCROLL_SPEED = 40;
-        console.log(this.grassed.width);
+        this.SCROLL_SPEED = 60;
+        //console.log(this.grassed.width);
         //placeholder.  Must change
         //this.starfield = this.add.tileSprite(0, 0, 640, 480, 'starfield').setOrigin(0, 0);
         //this.BOUNCE_VELOCITY = 350;
@@ -67,7 +67,7 @@ class Play extends Phaser.Scene{
        //this.sky = this.add.image(width * , game.world.centerY, 'bluesky').anchor.set(0.5); 
         keyF= this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
       // keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
-     
+      this.randomDistance = [100, 200];
         this.anims.create({
             key: 'bounce regular',
             frames: this.anims.generateFrameNumbers('ball', {start: 0, end: 8, first: 0}),
@@ -78,7 +78,7 @@ class Play extends Phaser.Scene{
             frames: this.anims.generateFrameNumbers('ball', {start: 9, end: 14, first: 9}),
             frameRate: 22
         })
-        this.bounce = this.physics.add.sprite(width/4, height/1.5, 'ball', 1).setScale(4);
+        this.bounce = this.physics.add.sprite(width/4, height/4, 'ball', 1).setScale(3);
         //this.bounce.setVelocity(0,60);
         
         this.bounce.setOrigin(0.5,0);
@@ -86,7 +86,7 @@ class Play extends Phaser.Scene{
         this.lastY = this.bounce.y;
         this.bounce.setMaxVelocity(0,500);
         //this.physics.world.gravity.y = 1000;
-        this.bounce.setCollideWorldBounds(true,1,1);
+        //this.bounce.setCollideWorldBounds(true,1,1);
        // this.bounce.setDragY(0);
         
        //Platforms
@@ -103,14 +103,18 @@ class Play extends Phaser.Scene{
             platform.scene.platformGroup.add(platform)
         }
        });
+       this.bounce.body.setBounceY(1);
+       //this.platformGroup.body.setCollideWorldBounds(true);
        this.physics.add.collider(this.bounce,this.platformGroup);
-       this.addPlatforms(game.config.width, game.config.width/2, game.config.height * gameOptions.platformVerticalLimit[1]);
+       this.gonethrough = 0;
+       this.addPlatforms(game.config.width, game.config.width/4, game.config.height * gameOptions.platformVerticalLimit[1]);
 
        
         
 
     }
     addPlatforms(platformWidth, posX, posY){
+        
         this.addedPlatforms++;
         let platform;
         let platformwidthed;
@@ -118,6 +122,7 @@ class Play extends Phaser.Scene{
         let newposse = posX;
         let newpapi = posY;
         if(this.platformPool.getLength()){
+            console.log('here');
             platform = this.platformPool.getFirst();
             platform.x = posX;
             platform.y = posY;
@@ -125,21 +130,35 @@ class Play extends Phaser.Scene{
         }
         else{
             
-            platform = this.physics.add.sprite(posX, game.config.height*0.8, 'upleft');
-            
-            for(platformwidthed = platformWidth/platform.displayWidth; platformwidthed > 1;platformwidthed--){
+            platform = this.physics.add.sprite(posX, posY, 'upleft');
+            //let cort
+            for(platformwidthed = platformWidth/platform.displayWidth; platformwidthed > 0;platformwidthed--){
+                
+                if(platformwidthed == 1){
+                    platform = this.physics.add.sprite(newposse, posY, 'upright');
+                }
+                else if(platformwidthed != platformWidth/platform.displayWidth){
+
+                    platform = this.physics.add.sprite(newposse, posY, 'grassup');
+                }
+                
+                
+                //cort = platformwidthed-1;
+                //console.log(cort);
                 platform.setImmovable(true);
                 platform.setVelocityX(-this.SCROLL_SPEED);
                 platform.body.allowGravity = false;
                 this.platformGroup.add(platform);
-                newpapi = game.config.height*0.8 + platform.displayHeight;
-                this.physics.add.collider(this.bounce, platform);
+                newpapi = posY + platform.displayHeight;
+               // this.physics.add.collider(this.bounce, platform);
+               // platform.body.setCollideWorldBounds(true);
                 //this.physics.add.collider(this.bounce, this.platformGroup);
-                for(platformheighted = posY - platform.displayHeight; platformheighted != 0; platformheighted--){
-                    if(this.platformwidthed == platformWidth/platform.displayWidth){
+                for(platformheighted = posY - 1; platformheighted != 0; platformheighted--){
+                    if(platformwidthed == platformWidth/platform.displayWidth){
                         platform = this.physics.add.sprite(posX, newpapi, 'sideleft');
                     }
-                    else if (platformwidthed == 2){
+                    else if (platformwidthed == 1){
+                       // console.log('here');
                         platform = this.physics.add.sprite(newposse, newpapi, 'sideright');
                     }
                     else{
@@ -152,11 +171,21 @@ class Play extends Phaser.Scene{
                     //this.physics.add.collider(this.bounce, this.platformGroup);
                    // this.physcadd.collider(this.bounce, this.platformGroup);
                     this.platformGroup.add(platform);
+                   // platform.body.setCollideWorldBounds(true);
                 }
                 newposse += platform.displayWidth;
-                platform = this.physics.add.sprite(newposse, game.config.height*0.8, 'grassup');
+                
+               // platform = this.physics.add.sprite(newposse, game.config.height*0.8, 'grassup');
+                // platform.body.allowGravity = false;
+                // platform.setVelocityX(-this.SCROLL_SPEED);
+                // console.log(newposse);
+              //  this.platformGroup.add(platform);
+               // platform.body.setCollideWorldBounds(true);
+
                 //this.physics.add.collider(this.bounce, this.platformGroup);
             }
+            //this.nextPlatformDistance = Phaser.Math.Between(gameOptions.landSizeRange[0], gameOptions.landSizeRange[1]);
+
             //this.physics.add.collider(this.bounce, this.platformGroup);
             
 
@@ -167,6 +196,16 @@ class Play extends Phaser.Scene{
             // platform.body.allowGravity = false;
             // this.platformGroup.add(platform);
         }
+        this.nextPlatformDistance = Phaser.Math.Between(gameOptions.spawnRange[0], gameOptions.spawnRange[1]);
+        this.randomGap = this.time.delayedCall(1000, ()=>{
+            if(gameOptions.spawnRange[0]<=200){
+                gameOptions.spawnRange[0] += 10;
+
+            }
+            if (gameOptions.spawnRange[1]<=400){
+                gameOptions.spawnRange[1] += 10;
+            }
+        },null,this);
         
         //platform.displayWidth = platformWidth;
        // this.
@@ -209,17 +248,46 @@ class Play extends Phaser.Scene{
        //width between 960/2 and 32*5
        let minDistance = game.config.width;
        let rightmostPlatformHeight = 0;
+       //console.log(this.platformGroup);
        this.platformGroup.getChildren().forEach(function(platform){
-           let platformDistance = game.config.width - platform.x - platform.displayWidth / 2;
-           if(platformDistance < minDistance){
-               minDistance = platformDistance;
-               rightmostPlatformHeight = platform.y;
-           }
-           if(platform.x < - platform.displayWidth / 2){
-               this.platformGroup.killAndHide(platform);
-               this.platformGroup.remove(platform);
-           }
-       }, this);
+        let platformDistance = game.config.width - platform.x - platform.displayWidth/2;
+        //minDistance = Math.min(minDistance, platformDistance);
+        //console.log(platform.x);
+        if(platformDistance < minDistance){
+            minDistance = platformDistance;
+            rightmostPlatformHeight = platform.y;
+        }
+
+        if(platform.x < -platform.displayWidth/2){
+            this.platformGroup.killAndHide(platform);
+            //console.log("deleted");
+            this.platformGroup.remove(platform);
+        }
+       },this);
+    //    if (minDistance > this.nextPlatformDistance) {
+    //     var nextPlatformWidth = Phaser.Math.Between(this.randomDistance[0], this.randomDistance[1]);
+    //     // change platform width every 5s
+    //     this.randomDis = this.time.delayedCall(10000, () => {
+    //         if (this.randomDistance[0] >= 70) {
+    //             this.randomDistance[0] += 10;
+    //         }
+    //         if (this.randomDistance[1] >= 100) {
+    //             this.randomDistance[1] += 10;
+    //         }
+    //     }, null, this);
+    //     this.addPlatforms(nextPlatformWidth, game.config.width + nextPlatformWidth / 2, game.config.height / 5 * 4);
+   // }
+    //    this.platformGroup.getChildren().forEach(function(platform){
+    //        let platformDistance = game.config.width - platform.x - platform.displayWidth / 2;
+    //        if(platformDistance < minDistance){
+    //            minDistance = platformDistance;
+    //            rightmostPlatformHeight = platform.y;
+    //        }
+    //        if(platform.x < - platform.displayWidth / 2){
+    //            this.platformGroup.killAndHide(platform);
+    //            this.platformGroup.remove(platform);
+    //        }
+    //    }, this);
         this.bounce.play('bounce regular', true);
         this.factor = 1.5;
         //if()
@@ -267,13 +335,16 @@ class Play extends Phaser.Scene{
         }
 
         if(minDistance > this.nextPlatformDistance){
+            //console.log('my my');
             let nextPlatformWidth = Phaser.Math.Between(gameOptions.landSizeRange[0], gameOptions.landSizeRange[1]);
             let platformRandomHeight = gameOptions.platformHeightScale * Phaser.Math.Between(gameOptions.heightRange[0], gameOptions.heightRange[1]);
+            
             let nextPlatformGap = rightmostPlatformHeight + platformRandomHeight;
             let minPlatformHeight = game.config.height * gameOptions.platformVerticalLimit[0];
             let maxPlatformHeight = game.config.height * gameOptions.platformVerticalLimit[1];
             let nextPlatformHeight = Phaser.Math.Clamp(nextPlatformGap, minPlatformHeight, maxPlatformHeight);
-            this.addPlatforms(nextPlatformWidth, game.config.width + nextPlatformWidth / 2, nextPlatformHeight);
+            console.log(nextPlatformWidth);
+            this.addPlatforms(nextPlatformWidth, game.config.width - nextPlatformWidth / 2, nextPlatformHeight);
         }
         // if(keyF.isdown){
         //     this.downFlag = true;
